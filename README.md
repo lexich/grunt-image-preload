@@ -97,6 +97,27 @@ grunt.initConfig({
   },
 });
 ```
+from index.html
+```html
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body></body>
+</html>
+```
+generated
+
+```html
+<html>
+	<head>
+		<title></title>
+	<!--preloader:js--><script>window.PRELOADER = ["http://example.com/2.png","http://example.com/7151.jpg","http://example.com/cat/20090508_025_amazing.jpg","http://example.com/thumbkoshki3912.jpg"];</script><!--endpreloader:js--></head>
+	<body></body>
+</html>
+```
+
+
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
