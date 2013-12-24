@@ -132,6 +132,30 @@ preloader.getPreload();
 preloader.load();
 ```
 
+#### window.PRELOADER - or name using in jsvar
+Type: `Function`
+Create prototype for loading resourses
+
+#### options.threads
+Type: `Integer`
+number of parralel loading
+
+#### options.progress
+Type: `function`
+callback execute every type where resource is success/fail loaded
+params:
+pro - procents  
+src - path to resource
+type - type of responce
+time - time since start of loading
+
+#### options.complete
+Type: `function`
+callback execute where loading is complete
+
+#### getPreload
+Type: `Function`
+return array of resource
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
