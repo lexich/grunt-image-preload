@@ -1,3 +1,5 @@
+fs = require "fs"
+
 module.exports = (grunt)->
   grunt.registerMultiTask "image_preload", "Generate js file with list of image resourse",->
     options = @options(
@@ -5,7 +7,6 @@ module.exports = (grunt)->
       root:""
     )
 
-    
     data = []
 
     @files.forEach (filePair)->
@@ -15,7 +16,11 @@ module.exports = (grunt)->
 
     content = JSON.stringify(data)
 
-    result = "<!--preloader:js--><script>window.#{options.jsvar} = #{content};</script><!--endpreloader:js--></head>"
+    fileData = fs.readFileSync("#{__dirname}/../template/inject.js").toString()    
+    fileData = fileData.replace /window\.PRELOADER[ ]*=/, ""    
+    script = "window.#{options.jsvar} = (#{fileData})(#{content});"
+    result = "<!--preloader:js--><script> #{script} </script><!--endpreloader:js--></head>"
+    
     processFiles = []
     @data.process.files.forEach (opt)->
       res =  grunt.file.expandMapping opt.src, opt.dest, opt

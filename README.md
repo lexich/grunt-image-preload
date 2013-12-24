@@ -117,6 +117,20 @@ generated
 </html>
 ```
 
+using ClientSide code
+```js
+var preloader = new window.PRELOADER({
+  threads:4,
+  progress: function(pro, src, type, time) {
+    return log("progress(" + type + ") " + time + ": " + pro + "% - " + src);
+  },
+  complete: function() {
+    return log("COMPLETE");
+  }
+});
+preloader.getPreload();
+preloader.load();
+```
 
 
 ## Contributing

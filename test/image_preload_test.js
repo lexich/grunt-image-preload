@@ -32,6 +32,11 @@ exports.image_preload = {
     test.ok(actual.indexOf("http://example.com/2.png") > 0 );
     test.ok(actual.indexOf("http://example.com/7151.jpg") > 0 ); 
     test.ok(actual.indexOf("http://example.com/thumbkoshki3912.jpg") > 0 );
+    test.ok(actual.indexOf("index.html") > 0 );
+
+    actual = grunt.file.read('tmp/index2.html');
+    test.ok(actual.indexOf("index2.html") > 0 );
+
     test.done();
   },
   

@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>index2.html</title>  
+   </head>
+  <body>
+    <div id="debug"></div>
+    <script type="text/javascript">
+      var debug = document.getElementById("debug");
+      var buffer = "";
+      var log = function(txt) {
+        buffer += "" + txt + "<br>";
+        return debug.innerHTML = buffer;
+      };
+      var Preloader = new window.PRELOADER({
+        threads:4,
+        progress: function(pro, src, type, time) {
+          return log("progress(" + type + ") " + time + ": " + pro + "% - " + src);
+        },
+        complete: function() {
+          return log("COMPLETE");
+        }
+      });
+      Preloader.load();      
+    </script>
+  </body>
+</html>
