@@ -16,9 +16,9 @@ module.exports = (grunt)->
 
     content = JSON.stringify(data)
 
-    fileData = fs.readFileSync("#{__dirname}/../template/inject.js").toString()    
-    fileData = fileData.replace /window\.PRELOADER[ ]*=/, ""    
-    script = "window.#{options.jsvar} = (#{fileData})(#{content});"
+    fileData = fs.readFileSync("#{__dirname}/../template/inject.min.js").toString()    
+    fileData = fileData.replace /window\.PRELOADER[ ]*=/, ""
+    script = "window.#{options.jsvar} = #{fileData}; window.#{options.jsvar}=window.#{options.jsvar}(#{content});"
     result = "<!--preloader:js--><script> #{script} </script><!--endpreloader:js--></head>"
     
     processFiles = []

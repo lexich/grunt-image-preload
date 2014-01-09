@@ -25,13 +25,14 @@ var grunt = require('grunt');
 exports.image_preload = {
   setUp: function(done) {
     // setup here if necessary
+    this.root = "../test/fixtures/images/";
     done();
   },
-  default_options: function(test) {  
+  default_options: function(test) {
     var actual = grunt.file.read('tmp/index.html');
-    test.ok(actual.indexOf("http://example.com/2.png") > 0 );
-    test.ok(actual.indexOf("http://example.com/7151.jpg") > 0 ); 
-    test.ok(actual.indexOf("http://example.com/thumbkoshki3912.jpg") > 0 );
+    test.ok(actual.indexOf(this.root + "2.png") > 0 );
+    test.ok(actual.indexOf(this.root + "7151.jpg") > 0 ); 
+    test.ok(actual.indexOf(this.root + "thumbkoshki3912.jpg") > 0 );
     test.ok(actual.indexOf("index.html") > 0 );
 
     actual = grunt.file.read('tmp/index2.html');

@@ -6,15 +6,19 @@
     <div id="debug"></div>
     <script type="text/javascript">
       var debug = document.getElementById("debug");
-      var buffer = "";
-      var log = function(txt) {
-        buffer += "" + txt + "<br>";
-        return debug.innerHTML = buffer;
+      var buffer = "";      
+      var log = function(txt, src) {
+        var img = "";
+        if(!!src){
+          img = "<img src='" + src + "' width=50 height=50 />";
+        }
+        buffer += "<tr><td>" + img + "</td><td>" + txt + "</td></tr>";
+        return debug.innerHTML = "<table>" + buffer + "</table>"; 
       };
       var Preloader = new window.PRELOADER({
         threads:4,
         progress: function(pro, src, type, time) {
-          return log("progress(" + type + ") " + time + ": " + pro + "% - " + src);
+          return log("progress(" + type + ") " + time + ": " + pro + "%", src);
         },
         complete: function() {
           return log("COMPLETE");

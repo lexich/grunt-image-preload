@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       default_options: {
         options: {
           jsname:"PRELOADER",
-          root:"http://example.com/"
+          root:"../test/fixtures/images/"
         },
         files:[{
           cwd: "test/fixtures/images", 
@@ -48,12 +48,21 @@ module.exports = function(grunt) {
       }
     },
     coffee:{
-      options:{
-        bare:true,
-        separator:"  "
+      dist:{
+        options:{
+          bare:true
+        },
+        files:{
+          "tasks/image_preload.js":"tasks/image_preload.coffee"
+        }  
       },
-      files:{
-        "template/inject.js":"template/inject.coffee"
+      template:{
+        options:{
+          bare:true
+        },
+        files:{          
+          "template/inject.js":"template/inject.coffee"
+        }  
       }
     },
     uglify:{
@@ -70,6 +79,19 @@ module.exports = function(grunt) {
 
   });
 
+  // Whenever the "test" task is run, first clean the "tmp" dir, then run this
+  // plugin's task(s), then test the result.
+  grunt.registerTask('test', [
+    'clean:tests', 
+    'coffee:template', 
+    'uglify', 
+    'image_preload', 
+    'nodeunit'
+  ]);
+
+  // By default, lint and run all tests.
+  grunt.registerTask('default', ['jshint', 'test']);
+
   // Actually load this plugin's task(s).
   grunt.loadTasks('tasks');
 
@@ -79,12 +101,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-
-  // Whenever the "test" task is run, first clean the "tmp" dir, then run this
-  // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'coffee', 'uglify', 'image_preload', 'nodeunit']);
-
-  // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'test']);
 
 };

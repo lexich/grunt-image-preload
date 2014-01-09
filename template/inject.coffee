@@ -35,12 +35,27 @@ window.PRELOADER = (preload)->
       @startLoading = new Date
       @loadImage i, nextImage, complete for i in [0..@options.threads-1]
 
-    getImageObject:(index)-> new Image()
+    getImageObject:(index, fn)->
+      @_getImageObject = {} unless @_getImageObject?
+      o = (@_getImageObject[index] or @_getImageObject[index] = {img:new Image, fn:null} )
+      events = ["load","error"]
+      if o.fn?        
+        if o.img.removeEventListener
+          o.img.removeEventListener ev, o.fn, false for ev in events
+        else if img.detachEvent
+          o.img.detachEvent "on#{ev}", o.fn for ev in events
+
+      o.fn = fn
+      if o.img.addEventListener
+        o.img.addEventListener ev, o.fn, false for ev in events        
+      else if o.img.attachEvent        
+        o.img.attachEvent "on#{ev}", o.fn for ev in events
+
+      o.img
 
     loadImage: (index, nextImage, complete)->
       if(src = nextImage.next())        
-        img = @getImageObject index
-        img.onload = img.onerror = (e)=>
+        img = @getImageObject index, (e)=>
           type = e?.type
           @options.progress nextImage.getPersent(), img.src, type, (new Date - @startLoading)
           @loadImage index, nextImage, complete
