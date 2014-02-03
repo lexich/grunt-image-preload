@@ -112,7 +112,7 @@ generated
 <html>
 	<head>
 		<title></title>
-	<!--preloader:js--><script>window.PRELOADER = ["http://example.com/2.png","http://example.com/7151.jpg","http://example.com/cat/20090508_025_amazing.jpg","http://example.com/thumbkoshki3912.jpg"];</script><!--endpreloader:js--></head>
+	<!--preloader:js--><script>window.PRELOADER = funtion(){...};</script><!--endpreloader:js--></head>
 	<body></body>
 </html>
 ```
