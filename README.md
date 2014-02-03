@@ -136,6 +136,10 @@ preloader.load();
 Type: `Function`
 Create prototype for loading resourses
 
+#### load - instanse method
+Type: `Function`
+start load images
+
 #### options.threads
 Type: `Integer`
 number of parralel loading
