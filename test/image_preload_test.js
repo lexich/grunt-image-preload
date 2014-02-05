@@ -30,9 +30,9 @@ exports.image_preload = {
   },
   default_options: function(test) {
     var actual = grunt.file.read('tmp/index.html');
-    test.ok(actual.indexOf(this.root + "2.png") > 0 );
-    test.ok(actual.indexOf(this.root + "7151.jpg") > 0 ); 
-    test.ok(actual.indexOf(this.root + "thumbkoshki3912.jpg") > 0 );
+    test.ok(actual.indexOf("2222.2.png") > 0 );
+    test.ok(actual.indexOf("3333.7151.jpg") > 0 ); 
+    test.ok(actual.indexOf("1111.thumbkoshki3912.jpg") > 0 );
     test.ok(actual.indexOf("index.html") > 0 );
 
     actual = grunt.file.read('tmp/index2.html');

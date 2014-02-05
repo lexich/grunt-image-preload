@@ -15,27 +15,65 @@ window.PRELOADER = function(preload) {
       threads: 1
     };
 
-    Preloader.prototype.getPreload = function() {
-      return [].concat(preload);
+    Preloader.prototype.getFile = function(path, _def) {
+      var filename, newPath, pie, pieces, ptr, _i, _len, _ref;
+      if (_def == null) {
+        _def = "";
+      }
+      pieces = path.split("/");
+      newPath = "";
+      ptr = preload;
+      _ref = pieces.slice(0, pieces.length - 1);
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        pie = _ref[_i];
+        if ((ptr = ptr[pie])) {
+          newPath += pie + "/";
+        } else {
+          return _def;
+        }
+      }
+      if ((filename = ptr[pieces[pieces.length - 1]])) {
+        return newPath + filename;
+      } else {
+        return _def;
+      }
     };
 
     Preloader.prototype.load = function() {
-      var callbackIter, complete, i, nextImage, numThread, _i, _ref, _results,
+      var callbackIter, complete, i, nextImage, numThread, _i, _p, _ref, _results,
         _this = this;
       this.startLoading = new Date;
+      _p = (function(_p) {
+        var d, pf;
+        d = [];
+        pf = function(root, _p) {
+          var item, key, path;
+          for (key in _p) {
+            item = _p[key];
+            if (typeof item === "string") {
+              d.push(root + item);
+            } else {
+              path = root + key + "/";
+              pf(path, item);
+            }
+          }
+          return d;
+        };
+        return pf("", _p);
+      })(preload);
       nextImage = {
         index: 0,
         procent: 0,
         getPersent: function() {
           this.procent += 1;
-          return 100.0 * this.procent / preload.length;
+          return 100.0 * this.procent / _p.length;
         },
         next: function() {
           var src;
-          if (preload.length <= this.index) {
+          if (_p.length <= this.index) {
             return null;
           }
-          src = preload[this.index];
+          src = _p[this.index];
           this.index += 1;
           return src;
         }

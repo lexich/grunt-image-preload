@@ -26,8 +26,11 @@ In your project's Gruntfile, add a section named `image_preload` to the data obj
 grunt.initConfig({
   image_preload: {
     options: {
-      jsvar:"PRELOADER",
-      root:"http://example.com/"
+      jsvar:"PRELOADER", //optional
+      root:"http://example.com/", //optional
+      inlineFile:null,
+      inlineLoad:null,
+      rev:false      
     },
     files:[{
       cwd: "test/fixtures/images", 
@@ -60,15 +63,42 @@ Default value: ``
 Root of all resources
 
 #### files
-type: `Object`
+Type: `Object`
 
 Grunt path to all processing resources
 
 #### process.files
-type: `Object`
+Type: `Object`
 
 Grunt path from processing resources to destination of generator
 
+#### options.inlineFile
+Type: `String`
+Default value: `null`
+
+Task generate js file whick located by options.inlineFile
+
+#### options.inlineLoad
+Type: `String`
+Default value: `options.inlineFile`
+
+If you want inject file automaticly, script inline in html tag
+```html
+<script type="text/javascript" src="#{options.inlineLoad}"></script>
+```
+
+#### options.rev
+Type: `String`
+Default value: false
+
+If you use functionality like plugin grunt-rev, set value
+`true` and processing filepath by function options.reduceRev
+which reduce revision
+
+#### options.reduceRev
+Type: `String`
+Default value: Function which reduce revision from file path
+while processin tree of files
 
 ### Usage Examples
 
@@ -157,9 +187,12 @@ time - time since start of loading
 Type: `function`
 callback execute where loading is complete
 
-#### getPreload
+#### getFile(path,_def)
 Type: `Function`
-return array of resource
+Arguments: 
+  path:`String` - path to image whithou revision
+  _def:`String` - default value
+return real path to file
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).

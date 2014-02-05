@@ -10,18 +10,39 @@ window.PRELOADER = (preload)->
       progress:(n,src, type)->
       threads:1
 
-    getPreload:-> [].concat preload
+    getFile:(path,_def="")->
+      pieces = path.split("/")      
+      newPath = ""
+      ptr = preload
+      for pie in pieces.slice(0,pieces.length-1)
+        if(ptr = ptr[pie])
+          newPath += pie + "/"
+        else return _def
+      if(filename = ptr[pieces[pieces.length-1]])
+        newPath + filename
+      else return _def
     load:->
       @startLoading = new Date
+      _p = do (_p=preload)->
+        d = []
+        pf = (root, _p)->
+          for key, item of _p
+            if typeof(item) is "string"
+              d.push root + item
+            else
+              path = root + key + "/"
+              pf path, item
+          d
+        pf "", _p
       nextImage =
         index: 0
         procent: 0
         getPersent:->
           @procent += 1
-          100.0 * @procent / preload.length
+          100.0 * @procent / _p.length
         next: ->
-          return null if preload.length <= @index
-          src = preload[@index]        
+          return null if _p.length <= @index
+          src = _p[@index]        
           @index += 1
           return src
 
