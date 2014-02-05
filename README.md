@@ -158,8 +158,8 @@ var preloader = new window.PRELOADER({
     return log("COMPLETE");
   }
 });
-preloader.getPreload();
 preloader.load();
+preloader.getFile("path/to/file/fulename.jpg") 
 ```
 
 #### window.PRELOADER - or name using in jsvar
