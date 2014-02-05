@@ -31,7 +31,7 @@ module.exports = function(grunt) {
     image_preload: {
       default_options: {
         options: {
-          jsname:"PRELOADER",
+          jsvar:"PRELOADER",
           root:"../test/fixtures/images/"
         },
         files:[{
@@ -45,8 +45,41 @@ module.exports = function(grunt) {
             dest: "tmp/"
           }]
         }
-      }
-    },
+      },
+      custom_options: {
+        options: {
+          jsvar:"PRELOADER",
+          root:"../test/fixtures/images/",
+          inlineLoad:"inline3.js",
+          inlineFile:"tmp/inline3.js"
+        },
+        files:[{
+          cwd: "test/fixtures/images", 
+          src: "**/*.{jpg,jpeg,png,gif}"
+        }],        
+        process:{
+          files:[{            
+            cwd:"test/fixtures",
+            src: "index.html",
+            dest: "tmp/",
+            rename:function(dest, filename, orig){              
+              return dest + filename.replace("index.html","index3.html");
+            }
+          }]
+        }
+      },
+      custom_options_2:{
+        options: {
+          jsvar:"PRELOADER2",
+          root:"../test/fixtures/images/",
+          inlineFile:"tmp/inline4.js"
+        },
+        files:[{
+          cwd: "test/fixtures/images", 
+          src: "**/*.{jpg,jpeg,png,gif}"
+        }],
+      },
+    },    
     coffee:{
       dist:{
         options:{

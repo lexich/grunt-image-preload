@@ -26,7 +26,7 @@ In your project's Gruntfile, add a section named `image_preload` to the data obj
 grunt.initConfig({
   image_preload: {
     options: {
-      jsname:"PRELOADER",
+      jsvar:"PRELOADER",
       root:"http://example.com/"
     },
     files:[{
@@ -46,7 +46,7 @@ grunt.initConfig({
 
 ### Options
 
-#### options.jsname
+#### options.jsvar
 Type: `String`
 Default value: `PRELOADER`
 
@@ -80,7 +80,7 @@ and in file test/fixtures/index.html injected js code with array of resources an
 grunt.initConfig({
   image_preload: {
     options: {
-      jsname:"PRELOADER",
+      jsvar:"PRELOADER",
       root:"http://example.com/"
     },
     files:[{

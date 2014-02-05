@@ -1,6 +1,6 @@
 {
   "name": "grunt-image-preload",
-  "description": "The best Grunt plugin ever.",
+  "description": "The best Grunt for preload images",
   "version": "0.2.2",
   "homepage": "https://github.com/lexich/grunt-image-preload",
   "author": {

@@ -40,5 +40,17 @@ exports.image_preload = {
 
     test.done();
   },
+  custom_options:function(test){
+    var actualHTML = grunt.file.read('tmp/index3.html');
+    var actualJS = grunt.file.read('tmp/inline3.js');
+    test.ok(actualHTML.indexOf("inline3.js") > 0);
+    test.ok(actualJS.indexOf("PRELOADER") > 0);
+    test.done();
+  },
+  custom_options_2:function(test){
+    var actualJS = grunt.file.read('tmp/inline4.js');
+    test.ok(actualJS.indexOf("PRELOADER2") > 0);
+    test.done();
+  }
   
 };
